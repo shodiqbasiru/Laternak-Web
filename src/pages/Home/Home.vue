@@ -1,12 +1,21 @@
 <script setup lang="ts">
-
 import NavbarComponent from "./components/NavbarComponent.vue";
+import HeroComponent from "./components/HeroComponent.vue";
+import CategoryComponent from "./components/CategoryComponent.vue";
+import ProductComponent from "./components/ProductComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
+import ReviewComponent from "./components/ReviewComponent.vue";
+
 </script>
 
 <template>
   <div>
     <NavbarComponent />
-    <h1 class="text-3xl bg-fuchsia-300">Home</h1>
+    <HeroComponent />
+    <CategoryComponent />
+    <ProductComponent />
+    <ReviewComponent />
+    <FooterComponent />
   </div>
 </template>
 
