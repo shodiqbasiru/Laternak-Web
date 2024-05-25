@@ -18,16 +18,16 @@ const onEnter = async (event: KeyboardEvent) => {
 </script>
 
 <template>
-  <div class="mx-20 my-10 flex justify-between">
+  <div class="mx-4 sm:mx-10 md:mx-20 my-10 flex flex-col md:flex-row justify-between">
     <h1 class="text-2xl text-center font-bold">Our Best Products</h1>
     <input
         v-model="searchParam"
         v-on:keyup="onEnter"
         type="text"
-        class="w-1/6 p-3 rounded-lg border"
+        class="w-full sm:w-1/2 md:w-1/6 p-3 rounded-lg border mt-4 md:mt-0"
         placeholder="Search Product">
   </div>
-  <div class="grid grid-cols-5 gap-x-20 gap-y-10 justify-between mx-20">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-x-10 md:gap-x-20 gap-y-10 justify-between mx-4 sm:mx-10 md:mx-20">
     <div class="flex flex-col justify-between bg-white rounded-lg shadow-lg overflow-hidden" v-for="product in products"
          :key="product.id">
       <div class="w-full">
