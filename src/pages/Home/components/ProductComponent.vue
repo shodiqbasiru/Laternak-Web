@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useProducts} from "../../../composables/useProducts.ts";
+import {useProducts} from "@composables/useProducts.ts";
 import {onMounted, ref} from "vue";
 
 const searchParam = ref('');

@@ -1,4 +1,4 @@
-import apiInstance from "../api/ApiInstance.ts";
+import apiInstance from "@api/ApiInstance.ts";
 
 const ProductServices = {
     getProducts: async (productName: string, minPrice: number, maxPrice: number) => {

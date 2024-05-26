@@ -1,6 +1,6 @@
 import {onMounted, ref} from "vue";
-import {Review} from "../types/Review.ts";
-import ReviewService from "../services/ReviewService.ts";
+import ReviewService from "@services/ReviewService.ts";
+import {Review} from "@/types/Review.ts";
 
 export function useReviews() {
     const reviews = ref<Review[]>([]);

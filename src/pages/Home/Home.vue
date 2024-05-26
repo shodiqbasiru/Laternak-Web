@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import NavbarComponent from "./components/NavbarComponent.vue";
-import HeroComponent from "./components/HeroComponent.vue";
-import CategoryComponent from "./components/CategoryComponent.vue";
-import ProductComponent from "./components/ProductComponent.vue";
-import FooterComponent from "./components/FooterComponent.vue";
-import ReviewComponent from "./components/ReviewComponent.vue";
+import NavbarComponent from "@pages/Home/components/NavbarComponent.vue";
+import HeroComponent from "@pages/Home/components/HeroComponent.vue";
+import CategoryComponent from "@pages/Home/components/CategoryComponent.vue";
+import ProductComponent from "@pages/Home/components/ProductComponent.vue";
+import ReviewComponent from "@pages/Home/components/ReviewComponent.vue";
+import FooterComponent from "@pages/Home/components/FooterComponent.vue";
 
 </script>
 

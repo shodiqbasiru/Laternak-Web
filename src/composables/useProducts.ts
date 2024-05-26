@@ -1,6 +1,6 @@
 import {ref} from "vue";
-import {Product} from "../types/Product.ts";
-import ProductServices from "../services/ProductServices.ts";
+import ProductServices from "@services/ProductServices.ts";
+import {Product} from "@/types/Product.ts";
 
 export function useProducts() {
     const products = ref<Product[]>([]);
