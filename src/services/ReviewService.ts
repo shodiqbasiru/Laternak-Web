@@ -1,4 +1,4 @@
-import apiInstance from "../api/ApiInstance.ts";
+import apiInstance from "@api/ApiInstance.ts";
 
 const ReviewService = {
     async getReviews() {

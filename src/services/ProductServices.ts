@@ -1,4 +1,4 @@
-import apiInstance from "../api/ApiInstance.ts";
+import apiInstance from "@api/ApiInstance.ts";
 
 const ProductServices = {
     getProducts: async (productName: string, minPrice: number, maxPrice: number) => {
@@ -17,6 +17,15 @@ const ProductServices = {
 
             const {data} = await apiInstance.get("/products", {params: params});
             return data;
+        } catch (e) {
+            console.error(e);
+        }
+    },
+
+    postProduct: async (payload:FormData) => {
+        try {
+           const {data} = await apiInstance.post("/products", payload);
+           return data;
         } catch (e) {
             console.error(e);
         }

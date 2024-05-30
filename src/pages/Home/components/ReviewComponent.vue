@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Swiper, SwiperSlide} from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
-import {useReviews} from "../../../composables/useReviews.ts";
+import {useReviews} from "@composables/useReviews.ts";
 
 const {reviews} = useReviews();
 </script>
