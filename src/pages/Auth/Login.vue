@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoginIllustration from '@assets/login-ilustration.svg';
 import {FormLogin} from "@/types/FormLogin.ts";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import AuthServices from "@services/AuthServices.ts";
 
@@ -23,6 +23,12 @@ const handleLogin = async (event: Event): Promise<void> => {
     console.error(e);
   }
 }
+
+onMounted(() => {
+  if (localStorage.getItem('token')) {
+    router.push("dashboard-admin");
+  }
+});
 
 </script>
 

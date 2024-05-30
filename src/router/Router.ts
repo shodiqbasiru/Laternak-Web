@@ -5,6 +5,7 @@ import Register from "@pages/Auth/Register.vue";
 import DashboardMain from "@pages/Dashboard/DashboardMain.vue";
 import DashboardHome from "@pages/Dashboard/DashboardHome/DashboardHome.vue";
 import NotFound from "@pages/NotFound.vue";
+import DashboardProduct from "@pages/Dashboard/DashboardProduct/DashboardProduct.vue";
 
 const routes = [
     {
@@ -31,6 +32,17 @@ const routes = [
                 name: 'dashboard-admin',
                 component: DashboardHome
             },
+            {
+                path:'products',
+                name:'dashboard-product',
+                component: DashboardProduct,
+                // children :[
+                //     {
+                //         path:'/create',
+                //         name:'dashboard-product-create',
+                //     }
+                // ]
+            }
 
         ]
 

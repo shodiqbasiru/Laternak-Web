@@ -20,6 +20,15 @@ const ProductServices = {
         } catch (e) {
             console.error(e);
         }
+    },
+
+    postProduct: async (payload:FormData) => {
+        try {
+           const {data} = await apiInstance.post("/products", payload);
+           return data;
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 

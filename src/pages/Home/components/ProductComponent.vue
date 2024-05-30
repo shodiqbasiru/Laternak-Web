@@ -3,15 +3,15 @@ import {useProducts} from "@composables/useProducts.ts";
 import {onMounted, ref} from "vue";
 
 const searchParam = ref('');
-const {products, imageBaseUrl, getData} = useProducts();
+const {products, imageBaseUrl, getTenData} = useProducts();
 
 onMounted(async () => {
-  await getData(searchParam.value, 0, 0);
+  await getTenData(searchParam.value, 0, 0);
 })
 
 const onEnter = async (event: KeyboardEvent) => {
   if (event.key === 'Enter') {
-    await getData(searchParam.value, 0, 0);
+    await getTenData(searchParam.value, 0, 0);
   }
 }
 
