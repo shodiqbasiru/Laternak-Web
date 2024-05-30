@@ -4,8 +4,9 @@ import {FormProduct} from "@/types/FormProduct.ts";
 import {FileUploadSelectEvent} from "primevue/fileupload";
 import {useProducts} from "@composables/useProducts.ts";
 import {useToast} from "primevue/usetoast";
+import Dialog from "primevue/dialog";
 
-const {postProduct, getAllData} = useProducts();
+const {postProduct} = useProducts();
 const visible = ref(false);
 const form = reactive<FormProduct>({
   productName: '',
@@ -16,7 +17,6 @@ const form = reactive<FormProduct>({
   images: []
 });
 
-const searchParam = ref('');
 const toast = useToast();
 
 const onUpload = (event: FileUploadSelectEvent) => {
@@ -31,7 +31,7 @@ const clearForm = () => {
   form.images = [];
 }
 
-const emit = defineEmits(['update:visible','productAdded'])
+const emit = defineEmits(['update:visible', 'productAdded']);
 
 const handleSubmit = async (event: Event) => {
   event.preventDefault();
@@ -66,8 +66,11 @@ const handleSubmit = async (event: Event) => {
 </script>
 
 <template>
-  <Dialog v-model:visible="visible" modal header="Add a New Product"
-          :style="{ width: '50rem' }">
+  <Dialog :visible="visible"
+          modal
+          :contentStyle="{width: '50rem'}"
+          header="Add Product"
+          @update:visible="emit('update:visible', false)">
     <form @submit.prevent="handleSubmit" class="w-full">
       <div class="mb-3">
         <label for="images" class="font-semibold">Upload</label>

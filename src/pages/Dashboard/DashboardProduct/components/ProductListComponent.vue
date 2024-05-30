@@ -1,18 +1,12 @@
 <script setup lang="ts">
 
-import {useProducts} from "@composables/useProducts.ts";
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import {Product} from "@/types/Product.ts";
 import ProductDetailComponent from "@pages/Dashboard/DashboardProduct/components/ProductDetailComponent.vue";
 
-const searchParam = ref('');
 const showDialog = ref(false);
 const dialogContent = ref<Product>();
 
-const {products, imageBaseUrl, getAllData} = useProducts();
-onMounted(async () => {
-  await getAllData(searchParam.value, 0, 0);
-});
 
 const handleAction = (data: any) => {
   console.log(data);
@@ -24,7 +18,10 @@ const handleDetail = (data: Product) => {
 }
 
 const emit = defineEmits(['addProduct']);
-
+const props = defineProps<{
+  products: Array<Product>;
+  imageBaseUrl: string;
+}>();
 </script>
 
 <template>
@@ -50,14 +47,14 @@ const emit = defineEmits(['addProduct']);
           :rowsPerPageOptions="[5, 10, 20, 50]"
           paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           currentPageReportTemplate="{first} to {last} of {totalRecords}"
-          :value="products"
+          :value="props.products"
           tableStyle="min-width: 50rem">
         <Column field="productName" header="Product Name"></Column>
         <Column field="price" header="Price"></Column>
         <Column field="stock" header="Stock"></Column>
         <Column field="images" header="Images">
           <template #body="slotProps">
-            <img v-if="slotProps.data.images.length > 0" :src="imageBaseUrl + slotProps.data.images[0].url"
+            <img v-if="slotProps.data.images.length > 0" :src="props.imageBaseUrl + slotProps.data.images[0].url"
                  :alt="slotProps.data.images[0].name" class="w-40 h-40 object-cover rounded-lg">
           </template>
         </Column>
