@@ -1,11 +1,15 @@
 <script setup lang="ts">
 
 import {useProducts} from "@composables/useProducts.ts";
-import {onMounted, onUpdated, ref} from "vue";
+import {onMounted, ref} from "vue";
+import {Product} from "@/types/Product.ts";
+import ProductDetailComponent from "@pages/Dashboard/DashboardProduct/components/ProductDetailComponent.vue";
 
 const searchParam = ref('');
-const {products, imageBaseUrl, getAllData} = useProducts();
+const showDialog = ref(false);
+const dialogContent = ref<Product>();
 
+const {products, imageBaseUrl, getAllData} = useProducts();
 onMounted(async () => {
   await getAllData(searchParam.value, 0, 0);
 });
@@ -14,11 +18,17 @@ const handleAction = (data: any) => {
   console.log(data);
 }
 
+const handleDetail = (data: Product) => {
+  dialogContent.value = data;
+  showDialog.value = true;
+}
+
+const emit = defineEmits(['addProduct']);
+
 </script>
 
 <template>
   <Card>
-
     <template #title>List Of Products</template>
     <template #content>
       <div class="flex justify-between items-center">
@@ -27,7 +37,7 @@ const handleAction = (data: any) => {
             label="Add Product"
             icon="pi pi-plus"
             iconPos="left"
-            @click="$emit('addProduct')"/>
+            @click="emit('addProduct')"/>
         <InputGroup class="w-full sm:w-1/2 md:w-1/4 p-3">
           <InputText placeholder="Search Product" :maxlength="20" class=" rounded-s-lg border mt-4 md:mt-0"/>
           <Button icon="pi pi-search" class="bg-amber-500 border-0" />
@@ -64,7 +74,7 @@ const handleAction = (data: any) => {
                 class="mx-2"
                 size="small"
                 aria-label="Detail"
-                @click="handleAction(slotProps.data)"
+                @click="handleDetail(slotProps.data)"
                 icon="pi pi-eye" severity="info"
                 outlined/>
             <Button
@@ -78,8 +88,11 @@ const handleAction = (data: any) => {
         </Column>
       </DataTable>
     </template>
-
   </Card>
+  <ProductDetailComponent
+      :content="dialogContent"
+      @update:visible="showDialog= $event"
+      :visible="showDialog"/>
 </template>
 
 <style scoped>

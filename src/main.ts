@@ -24,12 +24,17 @@ import Card from "primevue/card";
 import Dialog from "primevue/dialog";
 import FileUpload from "primevue/fileupload";
 import InputNumber from "primevue/inputnumber";
+import { VueQueryPlugin } from '@tanstack/vue-query'
+import DialogService from 'primevue/dialogservice';
+
 
 
 const app = createApp(App)
 app.use(PrimeVue)
 app.use(ToastService)
 app.use(router)
+app.use(VueQueryPlugin)
+app.use(DialogService)
 
 app.component('Dialog',Dialog)
 app.component('Card', Card)

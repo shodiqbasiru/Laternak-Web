@@ -6,6 +6,7 @@ import DashboardMain from "@pages/Dashboard/DashboardMain.vue";
 import DashboardHome from "@pages/Dashboard/DashboardHome/DashboardHome.vue";
 import NotFound from "@pages/NotFound.vue";
 import DashboardProduct from "@pages/Dashboard/DashboardProduct/DashboardProduct.vue";
+import DashboardOrder from "@pages/Dashboard/DashboardOrder/DashboardOrder.vue";
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
                 //         name:'dashboard-product-create',
                 //     }
                 // ]
+            },
+            {
+                path:'orders',
+                name: 'dashboard-order',
+                component: DashboardOrder
             }
 
         ]
