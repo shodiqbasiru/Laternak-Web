@@ -3,16 +3,34 @@ import ProductListComponent from "@pages/Dashboard/DashboardProduct/components/P
 import ProductFormComponent from "@pages/Dashboard/DashboardProduct/components/ProductFormComponent.vue";
 import {onMounted, ref} from "vue";
 import {useProducts} from "@composables/useProducts.ts";
+import {useConfirm} from "primevue/useconfirm";
+import {useToast} from "primevue/usetoast";
 
 const showDialog = ref(false);
 const searchParam = ref('');
-
-const {products, imageBaseUrl, getAllData} = useProducts();
+const confirm = useConfirm();
+const toast = useToast();
+const {products, imageBaseUrl, getAllData,deleteProduct} = useProducts();
 
 const onCreated = async () => {
   await getAllData(searchParam.value,0,0);
 }
 onCreated()
+
+const handleDelete = (id: string) => {
+  confirm.require({
+    group: 'headless',
+    header: 'Are you sure?',
+    message: 'Please confirm to proceed.',
+    accept: async () => {
+      await deleteProduct(id);
+      toast.add({severity: 'success', summary: 'Deleted', detail: 'Product deleted successfully', life: 3000});
+    },
+    reject: () => {
+      toast.add({severity: 'error', summary: 'Rejected', detail: 'You are canceled the action', life: 3000})
+    }
+  });
+};
 
 const refreshData = async () => {
   await getAllData(searchParam.value, 0, 0);
@@ -20,7 +38,7 @@ const refreshData = async () => {
 </script>
 
 <template>
-  <ProductListComponent @addProduct="showDialog = true" :products="products" :imageBaseUrl="imageBaseUrl"/>
+  <ProductListComponent @addProduct="showDialog = true" :products="products" :imageBaseUrl="imageBaseUrl" @deleteProduct="handleDelete"/>
   <ProductFormComponent :visible="showDialog" @update:visible="showDialog = $event" @productAdded="refreshData"/>
 </template>
 

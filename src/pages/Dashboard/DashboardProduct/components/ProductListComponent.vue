@@ -1,27 +1,26 @@
 <script setup lang="ts">
-
 import {ref} from "vue";
 import {Product} from "@/types/Product.ts";
 import ProductDetailComponent from "@pages/Dashboard/DashboardProduct/components/ProductDetailComponent.vue";
 
 const showDialog = ref(false);
 const dialogContent = ref<Product>();
-
-
-const handleAction = (data: any) => {
-  console.log(data);
-}
+const emit = defineEmits(['addProduct','deleteProduct']);
+const props = defineProps<{
+  products: Array<Product>;
+  imageBaseUrl: string;
+}>();
 
 const handleDetail = (data: Product) => {
   dialogContent.value = data;
   showDialog.value = true;
 }
 
-const emit = defineEmits(['addProduct']);
-const props = defineProps<{
-  products: Array<Product>;
-  imageBaseUrl: string;
-}>();
+const handleEdit = (data: Product) => {
+  console.log(data);
+}
+
+
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const props = defineProps<{
             @click="emit('addProduct')"/>
         <InputGroup class="w-full sm:w-1/2 md:w-1/4 p-3">
           <InputText placeholder="Search Product" :maxlength="20" class=" rounded-s-lg border mt-4 md:mt-0"/>
-          <Button icon="pi pi-search" class="bg-amber-500 border-0" />
+          <Button icon="pi pi-search" class="bg-amber-500 border-0"/>
         </InputGroup>
       </div>
 
@@ -63,7 +62,7 @@ const props = defineProps<{
             <Button
                 size="small"
                 aria-label="Edit"
-                @click="handleAction(slotProps.data)"
+                @click="handleEdit(slotProps.data)"
                 icon="pi pi-pencil"
                 severity="warning"
                 outlined/>
@@ -77,7 +76,7 @@ const props = defineProps<{
             <Button
                 size="small"
                 aria-label="Delete"
-                @click="handleAction(slotProps.data)"
+                @click="emit('deleteProduct', slotProps.data.id)"
                 icon="pi pi-trash"
                 severity="danger"
                 outlined/>
@@ -90,6 +89,23 @@ const props = defineProps<{
       :content="dialogContent"
       @update:visible="showDialog= $event"
       :visible="showDialog"/>
+
+  <ConfirmDialog group="headless" class="bg-gray-200 p-8" style="width: 30rem">
+    <template #container="{ message, acceptCallback, rejectCallback }">
+      <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-900 rounded-md">
+        <div
+            class="rounded-full text-white dark:text-surface-950 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-8">
+          <i class="pi pi-question text-5xl"></i>
+        </div>
+        <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+        <p class="mb-0">{{ message.message }}</p>
+        <div class="flex items-center gap-2 mt-4">
+          <Button label="Save" @click="acceptCallback"></Button>
+          <Button label="Cancel" outlined @click="rejectCallback" severity="danger"></Button>
+        </div>
+      </div>
+    </template>
+  </ConfirmDialog>
 </template>
 
 <style scoped>

@@ -29,6 +29,15 @@ const ProductServices = {
         } catch (e) {
             console.error(e);
         }
+    },
+
+    deleteProduct: async (id: string) => {
+        try {
+            const {data} = await apiInstance.delete(`/products/${id}`);
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ModalComponent from "@/shared/FileUpload/ModalComponent.vue";
+import ModalComponent from "@/shared/Modal/ModalComponent.vue";
 import {ref} from "vue";
 import {Order} from "@/types/Order.ts";
 

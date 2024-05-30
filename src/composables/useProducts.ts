@@ -32,5 +32,24 @@ export function useProducts() {
         }
     }
 
-    return {products, imageBaseUrl, getTenData, getAllData, postProduct};
+    const deleteProduct = async (id: string) => {
+        try {
+            const data =  await ProductServices.deleteProduct(id);
+            if (data.statusCode === 200) {
+                await getAllData("", 0, 0);
+                return data;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    return {
+        products,
+        imageBaseUrl,
+        getTenData,
+        getAllData,
+        postProduct,
+        deleteProduct
+    };
 }

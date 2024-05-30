@@ -2,7 +2,7 @@
 
 import {ref} from "vue";
 import {Product} from "@/types/Product.ts";
-import ModalComponent from "@/shared/FileUpload/ModalComponent.vue";
+import ModalComponent from "@/shared/Modal/ModalComponent.vue";
 
 const showDialog = ref(false);
 const dialogContent = ref<Product>();

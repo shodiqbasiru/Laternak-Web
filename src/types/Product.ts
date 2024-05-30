@@ -3,4 +3,5 @@ export interface Product {
     images: { url: string; name: string }[];
     productName: string;
     price: number;
+    isActive: boolean;
 }

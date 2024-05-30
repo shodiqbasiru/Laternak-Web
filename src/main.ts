@@ -26,6 +26,8 @@ import FileUpload from "primevue/fileupload";
 import InputNumber from "primevue/inputnumber";
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import DialogService from 'primevue/dialogservice';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmDialog from "primevue/confirmdialog";
 
 
 
@@ -35,8 +37,10 @@ app.use(ToastService)
 app.use(router)
 app.use(VueQueryPlugin)
 app.use(DialogService)
+app.use(ConfirmationService)
 
 app.component('Dialog',Dialog)
+app.component('ConfirmDialog',ConfirmDialog)
 app.component('Card', Card)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
