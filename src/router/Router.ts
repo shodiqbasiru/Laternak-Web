@@ -7,7 +7,9 @@ import DashboardHome from "@pages/Dashboard/DashboardHome/DashboardHome.vue";
 import NotFound from "@pages/NotFound.vue";
 import DashboardProduct from "@pages/Dashboard/DashboardProduct/DashboardProduct.vue";
 import DashboardOrder from "@pages/Dashboard/DashboardOrder/DashboardOrder.vue";
+import AuthServices from "@services/AuthServices.ts";
 
+const authService = AuthServices();
 const routes = [
     {
         path: '/',
@@ -15,18 +17,20 @@ const routes = [
         component: Home
     },
     {
-        path: '/login',
-        name: 'login',
-        component: Login
-    },
-    {
         path: "/register",
         name: "register",
         component: Register
     },
     {
+        path: '/login',
+        name: 'login',
+        component: Login
+    },
+
+    {
         path:'/dashboard-admin',
         component: DashboardMain,
+        meta: { requiresAuth: true },
         children: [
             {
                 path: '',
@@ -37,12 +41,6 @@ const routes = [
                 path:'products',
                 name:'dashboard-product',
                 component: DashboardProduct,
-                // children :[
-                //     {
-                //         path:'/create',
-                //         name:'dashboard-product-create',
-                //     }
-                // ]
             },
             {
                 path:'orders',
@@ -64,5 +62,17 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.beforeEach(async (to,_,next) => {
+    const isValid = await authService.validateToken();
+
+    if (to.name === 'login' && isValid) {
+        next({name: 'dashboard-admin'});
+    } else if (to.matched.some(record => record.meta.requiresAuth) && !isValid) {
+        next({name:"login"});
+    } else {
+        next();
+    }
+})
 
 export default router;

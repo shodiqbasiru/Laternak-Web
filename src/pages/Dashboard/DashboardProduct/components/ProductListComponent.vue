@@ -5,7 +5,7 @@ import ProductDetailComponent from "@pages/Dashboard/DashboardProduct/components
 
 const showDialog = ref(false);
 const dialogContent = ref<Product>();
-const emit = defineEmits(['addProduct','deleteProduct']);
+const emit = defineEmits(['addProduct','deleteProduct','updateProduct']);
 const props = defineProps<{
   products: Array<Product>;
   imageBaseUrl: string;
@@ -15,11 +15,6 @@ const handleDetail = (data: Product) => {
   dialogContent.value = data;
   showDialog.value = true;
 }
-
-const handleEdit = (data: Product) => {
-  console.log(data);
-}
-
 
 </script>
 
@@ -62,7 +57,7 @@ const handleEdit = (data: Product) => {
             <Button
                 size="small"
                 aria-label="Edit"
-                @click="handleEdit(slotProps.data)"
+                @click="emit('updateProduct', slotProps.data)"
                 icon="pi pi-pencil"
                 severity="warning"
                 outlined/>

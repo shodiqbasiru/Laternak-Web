@@ -5,17 +5,18 @@ import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import AuthServices from "@services/AuthServices.ts";
 
+const authService = AuthServices();
+const router = useRouter();
+
 const form = ref<FormLogin>({
   username: '',
   password: ''
 })
 
-const router = useRouter();
-
 const handleLogin = async (event: Event): Promise<void> => {
   event.preventDefault();
   try {
-    const response = await AuthServices.loginSeller(form.value);
+    const response = await authService.loginSeller(form.value);
     if (response.statusCode === 200) {
       await router.push("dashboard-admin");
     }
@@ -24,11 +25,11 @@ const handleLogin = async (event: Event): Promise<void> => {
   }
 }
 
-onMounted(() => {
-  if (localStorage.getItem('token')) {
-    router.push("dashboard-admin");
-  }
-});
+// onMounted(() => {
+//   if (localStorage.getItem('token')) {
+//     router.push("dashboard-admin");
+//   }
+// });
 
 </script>
 
